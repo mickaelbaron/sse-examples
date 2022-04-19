@@ -1,6 +1,6 @@
 # Projet sse-helloworld
 
-Cet exemple montre comment utiliser JAX-RS 2.1 et l'implémentation Jersey pour du développement serveur avec la technologie Server-Sent Events et le langage Java.
+Cet exemple montre comment utiliser JAX-RS et l'implémentation Jersey pour du développement serveur avec la technologie Server-Sent Events et le langage Java.
 
 Plus précisément trois ressources ont été développées afin d'illustrer les principales fonctionnalités du développement serveur avec SSE :
 
@@ -19,7 +19,7 @@ Nous montrons également comment déployer ces classes comme une application Jav
 * À la racine du projet, exécuter la ligne de commande suivante :
 
 ```console
-mvn clean package
+$ mvn clean package
 ```
 
 ## Comment exécuter
@@ -28,10 +28,11 @@ mvn clean package
 
 ```console
 java -cp "target/classes:target/dependency/*" fr.mickaelbaron.helloworldserversentevents.HelloWorldServerSetEventsLauncher
-janv. 18, 2019 7:04:54 PM org.glassfish.grizzly.http.server.NetworkListener start
+avr. 19, 2022 10:02:09 AM org.glassfish.grizzly.http.server.NetworkListener start
 INFO: Started listener bound to [localhost:9992]
-janv. 18, 2019 7:04:54 PM org.glassfish.grizzly.http.server.HttpServer start
+avr. 19, 2022 10:02:09 AM org.glassfish.grizzly.http.server.HttpServer start
 INFO: [HttpServer] Started.
+Jersey app started available at http://localhost:9992/api
 Hit enter to stop it...
 ```
 
@@ -42,7 +43,7 @@ Hit enter to stop it...
 Exécuter les trois requêtes suivantes depuis la ligne de commande pour invoquer les différents résultats de la ressource `HelloWorldSseResource`.
 
 ```console
-curl http://localhost:9992/api/sse
+$ curl http://localhost:9992/api/sse
 : This is a new HelloWorld message and continue the communication.
 event: add-message
 id: 123
@@ -51,7 +52,7 @@ data: HelloWorld
 ```
 
 ```console
-curl http://localhost:9992/api/sse/andstop
+$ curl http://localhost:9992/api/sse/andstop
 : This is a new HelloWorld message and terminate the communication.
 event: add-message
 id: 123
@@ -60,8 +61,7 @@ data: HelloWorld
 ```
 
 ```console
-curl http://localhost:9992/api/sse/withstreaming
-curl http://localhost:9992/api/sse/withstreaming
+$ curl http://localhost:9992/api/sse/withstreaming
 : This is a new HelloWorld message published each 1 second.
 event: add-message
 id: 0
@@ -85,7 +85,7 @@ data: HelloWorld19:08:30.436966
 * Maintenant, exécuter la requête suivante depuis la ligne de commande pour envoyer le contenu *My Event* au serveur afin de créer un événement SSE qui sera transmis aux deux clients.
 
 ```console
-curl --request POST --data 'My event' http://localhost:9992/api/sse-broadcast
+$ curl --request POST --data 'My event' http://localhost:9992/api/sse-broadcast
 Message 'My event' has been broadcast.
 ```
 
@@ -102,20 +102,20 @@ Message 'My event' has been broadcast.
 * Exécuter la requête suivante depuis la ligne de commande pour simuler un second client.
 
 ```console
-curl http://localhost:9992/api/sse-broadcast-json
+$ curl http://localhost:9992/api/sse-broadcast-json
 ```
 
 * Maintenant, exécuter la requête suivante depuis la ligne de commande pour envoyer le contenu *My Event* au serveur afin de créer un événement SSE qui sera transmis aux deux clients.
 
 ```console
-curl --request POST --data 'My event' http://localhost:9992/api/sse-broadcast-json
+$ curl --request POST --data 'My event' http://localhost:9992/api/sse-broadcast-json
 Message 'My event' has been broadcast.
 ```
 
 **Résultat :** visualiser le résultat dans la zone *Messages* de l'interface web.
 
 ```console
-curl http://localhost:9992/api/sse-broadcast-json
+$ curl http://localhost:9992/api/sse-broadcast-json
 : This is a new message.
 event: add-message
 id: 17:52:05.869907

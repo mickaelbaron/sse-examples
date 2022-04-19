@@ -2,14 +2,14 @@ package fr.mickaelbaron.helloworldserversentevents;
 
 import java.time.LocalTime;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.Context;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.sse.OutboundSseEvent;
-import javax.ws.rs.sse.Sse;
-import javax.ws.rs.sse.SseEventSink;
+import jakarta.ws.rs.GET;
+import jakarta.ws.rs.Path;
+import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.core.Context;
+import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.sse.OutboundSseEvent;
+import jakarta.ws.rs.sse.Sse;
+import jakarta.ws.rs.sse.SseEventSink;
 
 /**
  * @author Mickael BARON (baron.mickael@gmail.com)
@@ -23,7 +23,7 @@ public class HelloWorldSseResource {
 	
 	@GET
 	@Produces(MediaType.SERVER_SENT_EVENTS)
-	public void getHelloWorldWithSimpleSSE(@Context SseEventSink eventSink, @Context Sse sse) {
+	public void getHelloWorldWithSimpleSSE(@Context SseEventSink eventSink, @Context Sse sse) {		
 		OutboundSseEvent event = sse.newEventBuilder()
 				.name("add-message")
 				.data("HelloWorld")
@@ -55,7 +55,7 @@ public class HelloWorldSseResource {
 	public void getHelloWorldAndTimeWithSimpleSSE(@Context SseEventSink eventSink, @Context Sse sse) {
 		new Thread(() -> {
 			for (int i = 0; i < 10000; i++) {
-				try { Thread.sleep(1000);
+				try { Thread.sleep(5000);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
@@ -73,6 +73,6 @@ public class HelloWorldSseResource {
 				}
 			}
 			eventSink.close();
-		}).start();		
+		}).start();			
 	}
 }

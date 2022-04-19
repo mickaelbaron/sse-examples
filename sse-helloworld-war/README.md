@@ -1,6 +1,6 @@
 # Projet sse-helloworld-war
 
-Cet exemple montre comment déployer une application serveur qui utilise la technologie Server-Sent Events et le langage Java avec JAX-RS 2.1 et Jersey sur un serveur d'application Tomcat. Plus précisement il est expliqué comment déployer un fichier war avec un conteneur Docker basé sur une image Tomcat.
+Cet exemple montre comment déployer une application serveur qui utilise la technologie Server-Sent Events et le langage Java avec JAX-RS et Jersey sur un serveur d'application Tomcat. Plus précisement il est expliqué comment déployer un fichier war avec un conteneur Docker basé sur une image Tomcat.
 
 Un client HTML/JavaScript a été développé pour tester nos différentes ressources (répertoire _static/_).
 
@@ -11,21 +11,21 @@ Un client HTML/JavaScript a été développé pour tester nos différentes resso
 * À la racine du projet, exécuter la ligne de commande suivante :
 
 ```console
-mvn clean package
+$ mvn clean package
 ```
 
 ## Comment déployer
 
-* Exécuter la ligne de commande suivante pour télécharger l'image Docker correspondant à la version 9 de Tomcat s'exécutant sous un JRE 11
+* Exécuter la ligne de commande suivante pour télécharger l'image Docker correspondant à la version 10 de Tomcat s'exécutant sous un JRE 11
 
 ```console
-docker pull tomcat:9-jre11-slim
+$ docker pull tomcat:jre11-openjdk-slim
 ```
 
 * Exécuter la ligne de commande suivante permettant de créer un conteneur Docker
 
 ```console
-docker run --rm --name helloworldsse-tomcat -v $(pwd)/target/helloworldsse.war:/usr/local/tomcat/webapps/helloworldsse.war -it -p 8080:8080 tomcat:9-jre11-slim
+$ docker run --rm --name helloworldsse-tomcat -v $(pwd)/target/helloworldsse.war:/usr/local/tomcat/webapps/helloworldsse.war -it -p 8080:8080 tomcat:jre11-openjdk-slim
 ```
 
 ## Tester
