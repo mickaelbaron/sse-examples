@@ -4,9 +4,9 @@ Cet exemple montre comment utiliser JAX-RS et l'implémentation Jersey pour du d
 
 Plus précisément trois ressources ont été développées afin d'illustrer les principales fonctionnalités du développement serveur avec SSE :
 
-* `HelloWorldSseResource` pour envoyer un événement SSE à un client unique ;
-* `HelloWorldSseBroadcastResource` pour envoyer un événement SSE à plusieurs clients (broadcast) ;
-* `HelloWorldSseBroadcastWithJSONResource` pour envoyer un événement SSE à plusieurs clients (broadcast) avec des données au format JSON.
+- `HelloWorldSseResource` pour envoyer un événement SSE à un client unique ;
+- `HelloWorldSseBroadcastResource` pour envoyer un événement SSE à plusieurs clients (broadcast) ;
+- `HelloWorldSseBroadcastWithJSONResource` pour envoyer un événement SSE à plusieurs clients (broadcast) avec des données au format JSON.
 
 Un client HTML/JavaScript a été développé pour tester nos différentes ressources (répertoire _static/_).
 
@@ -16,21 +16,26 @@ Nous montrons également comment déployer ces classes comme une application Jav
 
 ## Comment compiler
 
-* À la racine du projet, exécuter la ligne de commande suivante :
+- À la racine du projet, exécuter la ligne de commande suivante :
 
-```console
-$ mvn clean package
+```bash
+mvn clean package
 ```
 
 ## Comment exécuter
 
-* Toujours depuis la racine du projet, exécuter la ligne de commande suivante :
+- Toujours depuis la racine du projet, exécuter la ligne de commande suivante :
 
-```console
+```bash
 java -cp "target/classes:target/dependency/*" fr.mickaelbaron.helloworldserversentevents.HelloWorldServerSetEventsLauncher
-avr. 19, 2022 10:02:09 AM org.glassfish.grizzly.http.server.NetworkListener start
+```
+
+La sortie console attendue :
+
+```bash
+mars 17, 2025 3:21:08 PM org.glassfish.grizzly.http.server.NetworkListener start
 INFO: Started listener bound to [localhost:9992]
-avr. 19, 2022 10:02:09 AM org.glassfish.grizzly.http.server.HttpServer start
+mars 17, 2025 3:21:08 PM org.glassfish.grizzly.http.server.HttpServer start
 INFO: [HttpServer] Started.
 Jersey app started available at http://localhost:9992/api
 Hit enter to stop it...
@@ -42,8 +47,13 @@ Hit enter to stop it...
 
 Exécuter les trois requêtes suivantes depuis la ligne de commande pour invoquer les différents résultats de la ressource `HelloWorldSseResource`.
 
-```console
-$ curl http://localhost:9992/api/sse
+```bash
+curl http://localhost:9992/api/sse
+```
+
+La sortie console attendue :
+
+```bash
 : This is a new HelloWorld message and continue the communication.
 event: add-message
 id: 123
@@ -51,8 +61,13 @@ retry: 1000
 data: HelloWorld
 ```
 
-```console
-$ curl http://localhost:9992/api/sse/andstop
+```bash
+curl http://localhost:9992/api/sse/andstop
+```
+
+La sortie console attendue :
+
+```bash
 : This is a new HelloWorld message and terminate the communication.
 event: add-message
 id: 123
@@ -60,8 +75,13 @@ retry: 1000
 data: HelloWorld
 ```
 
-```console
-$ curl http://localhost:9992/api/sse/withstreaming
+```bash
+curl http://localhost:9992/api/sse/withstreaming
+```
+
+La sortie console attendue :
+
+```bash
 : This is a new HelloWorld message published each 1 second.
 event: add-message
 id: 0
@@ -76,46 +96,61 @@ data: HelloWorld19:08:30.436966
 
 ### HelloWorldSseBroadcastResource
 
-* Depuis un navigateur web, saisir l'URL suivante <http://localhost:9992> sur deux onglets pour simuler la présence de deux clients.
+- Depuis un navigateur web, saisir l'URL suivante <http://localhost:9992> sur deux onglets pour simuler la présence de deux clients.
 
-* Saisir pour chaque onglet l'URL <http://localhost:9992/api/sse-broadcast> dans la zone *Location*.
+- Saisir pour chaque onglet l'URL <http://localhost:9992/api/sse-broadcast> dans la zone _Location_.
 
-* Appuyer sur **Connect**.
+- Appuyer sur **Connect**.
 
-* Maintenant, exécuter la requête suivante depuis la ligne de commande pour envoyer le contenu *My Event* au serveur afin de créer un événement SSE qui sera transmis aux deux clients.
+- Maintenant, exécuter la requête suivante depuis la ligne de commande pour envoyer le contenu _My Event_ au serveur afin de créer un événement SSE qui sera transmis aux deux clients.
 
-```console
-$ curl --request POST --data 'My event' http://localhost:9992/api/sse-broadcast
+```bash
+curl --request POST --data 'My event' http://localhost:9992/api/sse-broadcast
+```
+
+La sortie console attendue :
+
+```bash
 Message 'My event' has been broadcast.
 ```
 
-**Résultat :** visualiser le résultat dans la zone *Messages* de l'interface web des deux onglets.
+**Résultat :** visualiser le résultat dans la zone _Messages_ de l'interface web des deux onglets.
 
 ### HelloWorldSseBroadcastWithJSONResource
 
-* Depuis un navigateur web, saisir l'URL suivante <http://localhost:9992> sur un onglet.
+- Depuis un navigateur web, saisir l'URL suivante <http://localhost:9992> sur un onglet.
 
-* Saisir dans la zone *Location* l'URL suivante <http://localhost:9992/api/sse-broadcast-json>.
+- Saisir dans la zone _Location_ l'URL suivante <http://localhost:9992/api/sse-broadcast-json>.
 
-* Appuyer sur **Connect**.
+- Appuyer sur **Connect**.
 
-* Exécuter la requête suivante depuis la ligne de commande pour simuler un second client.
+- Exécuter la requête suivante depuis la ligne de commande pour simuler un second client.
 
-```console
-$ curl http://localhost:9992/api/sse-broadcast-json
+```bash
+curl http://localhost:9992/api/sse-broadcast-json
 ```
 
-* Maintenant, exécuter la requête suivante depuis la ligne de commande pour envoyer le contenu *My Event* au serveur afin de créer un événement SSE qui sera transmis aux deux clients.
+- Maintenant, exécuter la requête suivante depuis la ligne de commande pour envoyer le contenu _My Event_ au serveur afin de créer un événement SSE qui sera transmis aux deux clients.
 
-```console
-$ curl --request POST --data 'My event' http://localhost:9992/api/sse-broadcast-json
+```bash
+curl --request POST --data 'My event' http://localhost:9992/api/sse-broadcast-json
+```
+
+La sortie console attendue :
+
+```bash
 Message 'My event' has been broadcast.
 ```
 
-**Résultat :** visualiser le résultat dans la zone *Messages* de l'interface web.
+**Résultat :** visualiser le résultat dans la zone _Messages_ de l'interface web.
 
-```console
-$ curl http://localhost:9992/api/sse-broadcast-json
+```bash
+curl http://localhost:9992/api/sse-broadcast-json
+```
+
+La sortie console attendue :
+
+```bash
 : This is a new message.
 event: add-message
 id: 17:52:05.869907

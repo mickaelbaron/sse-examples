@@ -8,37 +8,42 @@ Un client HTML/JavaScript a été développé pour tester nos différentes resso
 
 ## Comment compiler
 
-* À la racine du projet, exécuter la ligne de commande suivante :
+- À la racine du projet, exécuter la ligne de commande suivante :
 
-```console
-$ mvn clean package
+```bash
+mvn clean package
 ```
 
 ## Comment déployer
 
-* Exécuter la ligne de commande suivante pour télécharger l'image Docker correspondant à la version 10 de Tomcat s'exécutant sous un JRE 11
+- Exécuter la ligne de commande suivante pour télécharger l'image Docker correspondant à la version 10 de Tomcat s'exécutant sous un JRE 11
 
-```console
-$ docker pull tomcat:jre11-openjdk-slim
+```bash
+docker pull tomcat:jre11-openjdk-slim
 ```
 
-* Exécuter la ligne de commande suivante permettant de créer un conteneur Docker
+- Exécuter la ligne de commande suivante permettant de créer un conteneur Docker
 
-```console
-$ docker run --rm --name helloworldsse-tomcat -v $(pwd)/target/helloworldsse.war:/usr/local/tomcat/webapps/helloworldsse.war -it -p 8080:8080 tomcat:jre11-openjdk-slim
+```bash
+docker run --rm --name helloworldsse-tomcat -v $(pwd)/target/helloworldsse.war:/usr/local/tomcat/webapps/helloworldsse.war -it -p 8080:8080 tomcat:jre11-openjdk-slim
 ```
 
 ## Tester
 
-* Depuis un navigateur web, saisir l'URL suivante <http://localhost:8080/helloworldsse/> sur un onglet.
+- Depuis un navigateur web, saisir l'URL suivante <http://localhost:8080/helloworldsse/> sur un onglet.
 
-* Appuyer sur **Connect**.
+- Appuyer sur **Connect**.
 
-* Exécuter la requête suivante depuis la ligne de commande pour envoyer le contenu *My Event* au serveur afin de créer un événement SSE qui sera transmis aux deux clients.
+- Exécuter la requête suivante depuis la ligne de commande pour envoyer le contenu _My Event_ au serveur afin de créer un événement SSE qui sera transmis aux deux clients.
 
-```console
+```bash
 curl --request POST --data 'My event' http://localhost:8080/helloworldsse/api/sse
+```
+
+La sortie console attendue :
+
+```bash
 Message 'My event' has been broadcast.
 ```
 
-**Résultat :** visualiser le résultat dans la zone *Messages* de l'interface web.
+**Résultat :** visualiser le résultat dans la zone _Messages_ de l'interface web.
